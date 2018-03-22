@@ -1,0 +1,19 @@
+<p>College Index</p>
+
+<div>
+	<%=form_for @collegeNew do |collegeNew|%>
+		<%=collegeNew.label :collegename%>
+		<%=collegeNew.text_field :collegename%>
+		<%=collegeNew.submit 'Create College'%>
+	<%end%>
+</div>
+
+<div>
+	<% @college.each do |college|%>
+		<p>
+			<%= link_to college.collegename , posts_path(college.collegename)%>
+			<%= link_to "Delete" , college_path(college)  , method: :delete , confirm: "Are you sure?"%>
+		</p>
+		
+	<%end%>
+</div>
