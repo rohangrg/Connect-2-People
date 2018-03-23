@@ -1,0 +1,56 @@
+<li>
+	<%=post.content%>
+	<small><sub><%=post.user.email%></sub></small>
+
+	<%= form_with url: likes_path do |form|%>
+		<%= form.hidden_field :parent_id, value: post.id %>
+		<%= form.hidden_field :parent_type, value: 'Post' %>
+
+		<%if Like.exists?(user_id: current_user.id , parent_type: 'Post' , parent_id: post.id)%>
+			<%=form.submit'Liked'%>
+		<%else%>
+			<%=form.submit'Like'%>
+		<%end%>
+
+	<%end%>
+
+	<%=post.likes.length%>
+
+
+
+	<%= link_to "Delete", post_path(post) , method: :delete%>
+
+	<%= form_with url: comments_path do |form|%>
+		<%= form.label :comment%>
+		<%= form.text_field :content%>
+		<%= form.label "Secret Mode" %> 
+    	<%= form.check_box :mode %>
+    	<%= form.hidden_field :post_id, value: post.id %>
+    	<%= form.submit'create comment'%>
+    <%end%>
+
+    <ul>
+    <%post.comments.each do |comment|%>
+   		<li>
+    		<%=comment.content%>
+			<small><sub><%=comment.user.email%></sub></small>
+			<%= form_with url: likes_path do |form|%>
+				<%= form.hidden_field :parent_id, value: comment.id %>
+				<%= form.hidden_field :parent_type, value: 'Comment' %>
+
+				<%if Like.exists?(user_id: current_user.id , parent_type: 'Comment' , parent_id: comment.id)%>
+					<%=form.submit'Liked'%>
+				<%else%>
+					<%=form.submit'Like'%>
+				<%end%>
+
+
+			<%end%>
+			<%=comment.likes.length%>
+		</li>
+	<%end%>
+	</ul>
+
+
+
+</li>

@@ -14,12 +14,10 @@
 	<%end%>
 </div>
 <div>
-	<% Array(@post).each do |post|%>
-		<p>
-			<%=post.content%>
-			<small><sub><%=post.user.email%></sub></small>
-			<%= link_to "Delete", post_path(post) , method: :delete%>
-		</p>
+	<% @post.each do |post|%>
+		<ul>
+			<%= render "post", post: post %>
+		</ul>
 		
 	<%end%>
 </div>

@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
 		@postNew = Post.new
 		@post = Post.where(college: params[:college])
-		
+		# @comment = Comment.new		
 
 	end
 
@@ -33,8 +33,7 @@ class PostsController < ApplicationController
 		
 		@post = Post.find(params[:id])
 		@post.destroy
-		redirect_to action: 'index' 
-		
+		redirect_to action: "index", college: @post.college
 
 	end
 

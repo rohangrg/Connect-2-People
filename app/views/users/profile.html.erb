@@ -1,4 +1,4 @@
 <h1>Users#profile</h1>
-	<% @post.each do |po|%>
-	<%= po.content %><br>	
-	<%end%>
+	<% @post.each do |post|%>
+	<%= render "posts/post", post: post %>
+<%end%>
